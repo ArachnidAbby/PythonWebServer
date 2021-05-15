@@ -1,3 +1,5 @@
+import Configuration as config
+
 ContentTypes = {
     "ico" : "image/webp",
     "png" : "image/webp",
@@ -14,13 +16,19 @@ def get_ContentType(pageName):
         return "text/html"
     return ContentTypes[pageName.split('.')[1]]
 
-def send_Page(page,conn,ContentType="text/html"):
+def send_Header(HTTPCode,ContentType,ContentLength,conn):
+    try:
+        conn.send(f'HTTP/1.1 {HTTPCode}\nServer: PythonWebServer/{config.VERSION}\nContent-Type: {ContentType}\nContent-Length: {ContentLength}\nConnection: Closed\n\n'.encode())
+    except:
+        print("Failed to send HTTP Header")
+
+def send_Page(page,conn,ContentType="text/html",code = "200 OK"):
     '''
     page = page content
     conn = socket connection
     '''
     try:
-        conn.send(f'HTTP/1.1 200 OK\nContent-Type: {ContentType}\nContent-Length: {len(page)}\nConnection: Closed\n\n'.encode())
+        send_Header(code,ContentType,len(page),conn)
         conn.send(page)
     except:
         print("Connection Aborted: Transaction could not be completed")
@@ -34,8 +42,7 @@ def send_404(conn):
     try:
         with open('PageSrc/404Page.html','rb') as f:
             src = f.read()
-            conn.send(f'HTTP/1.1 404 Not Found\nContent-Type: text/html;charset=utf-8\nContent-Length: {len(src)}\nConnection: Closed\n\n'.encode())
-            conn.send(src)
+            send_Page(src,conn,code="404 Not Found")
     except:
         ERROR_MSG = '''
         <html>
@@ -43,5 +50,13 @@ def send_404(conn):
             <body><h1>404 PAGE NOT FOUND</h1></body>
         </html>
         '''
-        conn.send(f'HTTP/1.1 404 Not Found\nContent-Type: text/html;charset=utf-8\nContent-Length: {len(ERROR_MSG)}\nConnection: Closed\n\n'.encode())
-        conn.send(ERROR_MSG.encode())
+        send_Page(ERROR_MSG.encode(),conn,code="404 Not Found")
+
+def send_RawHeader(header, conn):
+    '''
+    Send only an HTTP header
+    '''
+    try:
+        conn.send(header.encode())
+    except:
+        print("Transaction failed")

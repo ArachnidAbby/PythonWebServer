@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/Version-0.1-green)
+![Version](https://img.shields.io/badge/Version-0.1.1-green)
 # Python WebServer
 
 This is a very basic  webserver that can only handle `GET` requests as of now.
@@ -22,3 +22,10 @@ Lastly, go to whatever page you want by going to `localhost:1300/PAGENAME.EXTENS
 ## Redirections
 
 Currently the only redirect redirects `/` -> `/index.html` but you can add as many as you want within the code.
+
+## Config
+
+You can edit the config by going into `/config/globalConfiguration.json`
+
+## Custom 404
+You need to create the file  `PageSrc/404Page.html` and fill it with the content of your 404 page.

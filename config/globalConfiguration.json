@@ -1,0 +1,16 @@
+{
+    "SocketSettings":{
+        "HOST":"localhost",
+        "PORT":1300
+    },
+
+    "blockedMethods" : [
+        "PUT",
+        "DELETE"
+    ],
+
+    "Redirects":{
+        "/" : "/index.html",
+        "/iconImage": "/favicon.ico"
+    }
+}
