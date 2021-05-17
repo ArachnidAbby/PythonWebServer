@@ -12,7 +12,12 @@ def handle_POST(request, conn, fullRequest):
     pass
 
 def handle_HEAD(request, conn, fullRequest):
-    pass
+    '''
+    Handles HEAD request
+    '''
+    splitRequest = request.split(" ")
+    with open("PageSrc"+splitRequest[1],"rb") as f:
+        Handle_IO.send_Header("200 OK",Handle_IO.get_ContentType(splitRequest[1]),len(f.read()),conn)
 
 def handle_PUT(request, con, fullRequest):
     pass

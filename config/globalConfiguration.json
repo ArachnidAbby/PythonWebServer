@@ -4,13 +4,13 @@
         "PORT":1300
     },
 
-    "blockedMethods" : [
+    "BlockedMethods" : [
         "PUT",
         "DELETE"
     ],
 
     "Redirects":{
-        "/" : "/index.html",
-        "/iconImage": "/favicon.ico"
+        "/iconImage": "/favicon.ico",
+        "/contents" : "/tableOfContents.html"
     }
 }

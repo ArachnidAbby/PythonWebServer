@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/Version-0.1.1-green)
+![Version](https://img.shields.io/badge/Version-0.1.2-green)
 # Python WebServer
 
 This is a very basic  webserver that can only handle `GET` requests as of now.
@@ -12,6 +12,7 @@ This is a very basic  webserver that can only handle `GET` requests as of now.
 |.jpg|image/webp|
 |.html|text/html;charset=utf-8|
 |.txt|plain;charset=utf-8|
+|.css|text/html;charset=utf-8|
 
 ## How-to
 

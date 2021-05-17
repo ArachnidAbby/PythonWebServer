@@ -1,6 +1,6 @@
 import socket
 
-SEND = "TRACE / HTTP/1.1\r\nHost: Localhost:1300"
+SEND = "GET / HTTP/1.1\r\nHost: Localhost:1300"
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(("localhost",1300))

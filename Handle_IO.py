@@ -5,7 +5,8 @@ ContentTypes = {
     "png" : "image/webp",
     "jpg" : "image/webp",
     "html": "text/html;charset=utf-8",
-    "txt" : "plain;charset=utf-8"
+    "txt" : "plain;charset=utf-8",
+    "css" : "text/html;charset=utf-8"
 }
 
 def get_ContentType(pageName):
@@ -33,6 +34,15 @@ def send_Page(page,conn,ContentType="text/html",code = "200 OK"):
     except:
         print("Connection Aborted: Transaction could not be completed")
 
+def send_RawHeader(header, conn):
+    '''
+    Send only an HTTP header
+    '''
+    try:
+        conn.send(header.encode())
+    except:
+        print("Transaction failed")
+
 def send_404(conn):
     '''
     sends a 404 message.
@@ -52,11 +62,19 @@ def send_404(conn):
         '''
         send_Page(ERROR_MSG.encode(),conn,code="404 Not Found")
 
-def send_RawHeader(header, conn):
+def send_405(conn,method):
     '''
-    Send only an HTTP header
+    Sends a 405 Method Not Allowed Status Code
     '''
     try:
-        conn.send(header.encode())
+        page = f'''
+        <html>
+            <title405 ERROR</title>
+            <h1>This Method is not allowed</h1>
+            </h2>Method "{method}" is not allowed on this server!</h2>
+        </html>
+        '''
+        send_Header("405 Method Not Allowed","text/html;charset=utf-8",len(page),conn)
+        conn.send(page.encode())
     except:
         print("Transaction failed")

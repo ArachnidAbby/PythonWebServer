@@ -7,7 +7,7 @@ Redirects = {}
 global HOST,PORT,VERSION
 HOST = "localhost"
 PORT = 1300
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 
 
 def read_AllConfig():
@@ -29,7 +29,7 @@ def read_ConfigFile(filename : str):
 
 def load_GlobalConfig(config : dict):
     global g_blockedMethods,Redirects
-    g_blockedMethods = config["blockedMethods"]
+    g_blockedMethods = config["BlockedMethods"]
     Redirects = config["Redirects"]
 
     global HOST,PORT
