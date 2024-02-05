@@ -17,19 +17,19 @@ def get_ContentType(pageName):
         return "text/html"
     return ContentTypes[pageName.split('.')[1]]
 
-def send_Header(HTTPCode,ContentType,ContentLength,conn):
+def send_Header(HTTPCode, ContentType, ContentLength, conn):
     try:
         conn.send(f'HTTP/1.1 {HTTPCode}\nServer: PythonWebServer/{config.VERSION}\nContent-Type: {ContentType}\nContent-Length: {ContentLength}\nConnection: Closed\n\n'.encode())
     except:
         print("Failed to send HTTP Header")
 
-def send_Page(page,conn,ContentType="text/html",code = "200 OK"):
+def send_Page(page, conn, ContentType="text/html", code="200 OK"):
     '''
     page = page content
     conn = socket connection
     '''
     try:
-        send_Header(code,ContentType,len(page),conn)
+        send_Header(code, ContentType, len(page), conn)
         conn.send(page)
     except:
         print("Connection Aborted: Transaction could not be completed")
@@ -60,9 +60,9 @@ def send_404(conn):
             <body><h1>404 PAGE NOT FOUND</h1></body>
         </html>
         '''
-        send_Page(ERROR_MSG.encode(),conn,code="404 Not Found")
+        send_Page(ERROR_MSG.encode(), conn, code="404 Not Found")
 
-def send_405(conn,method):
+def send_405(conn, method):
     '''
     Sends a 405 Method Not Allowed Status Code
     '''
@@ -74,7 +74,9 @@ def send_405(conn,method):
             </h2>Method "{method}" is not allowed on this server!</h2>
         </html>
         '''
-        send_Header("405 Method Not Allowed","text/html;charset=utf-8",len(page),conn)
+        send_Header("405 Method Not Allowed"
+                    "text/html;charset=utf-8",
+                    len(page), conn)
         conn.send(page.encode())
     except:
         print("Transaction failed")
